@@ -41,4 +41,4 @@ jobs:
         with:
           name: compile-result
       - name: Build and Test
-        run: sbt testOnly ".*\\.[${{ matrix.tests }}].*"
+        run: sbt "testOnly .*\\.[${{ matrix.tests }}].*"
