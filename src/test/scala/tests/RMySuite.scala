@@ -6,7 +6,7 @@ class RMySuite extends munit.FunSuite {
   test("example test that succeeds") {
     val obtained = 42
     val expected = 42
-    Thread.sleep(21000)
+    Thread.sleep(15000)
     assertEquals(obtained, expected)
   }
 }

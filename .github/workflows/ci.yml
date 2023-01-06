@@ -27,7 +27,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        tests: [A-I, J-M, N-Z]
+        tests: [A-I, J-N, O, Q-Z]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
