@@ -7,14 +7,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Setup JDK
         uses: actions/setup-java@v3
         with:
           distribution: temurin
           java-version: 17
       - uses: coursier/cache-action@v6
-      - name: Build and Test
+      - name: Compile
         run: sbt test:compile
       - name: Archive compile results
         uses: actions/upload-artifact@v3
@@ -30,7 +30,7 @@ jobs:
         tests: [A-I, J-M, N-Z]
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Setup JDK
         uses: actions/setup-java@v3
         with:
@@ -40,5 +40,5 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: compile-result
-      - name: Build and Test
+      - name: Test .*\\.[${{ matrix.tests }}].*
         run: sbt "testOnly .*\\.[${{ matrix.tests }}].*"
