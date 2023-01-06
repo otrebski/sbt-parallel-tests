@@ -13,11 +13,7 @@ jobs:
         with:
           distribution: temurin
           java-version: 17
-      - name: Cache sbt
-        uses: actions/cache@v3
-        with:
-          path: |
-            ~/.sbt
+      - uses: coursier/cache-action@v6
       - name: Build and Test
         run: sbt test:compile
       - name: Archive compile results
