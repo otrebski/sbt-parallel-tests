@@ -3,6 +3,29 @@ on:
   pull_request:
   push:
 jobs:
+  compile:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: temurin
+          java-version: 17
+      - name: Cache sbt
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.sbt
+      - name: Build and Test
+        run: sbt test:compile
+      - name: Archive compile results
+        uses: actions/upload-artifact@v3
+        with:
+          name: compile-result
+          path: target
+          retention-days: 5
   test:
     runs-on: ubuntu-latest
     steps:
@@ -13,5 +36,9 @@ jobs:
         with:
           distribution: temurin
           java-version: 17
+      - name: Download a compile classes
+        uses: actions/download-artifact@v3
+        with:
+          name: compile-result
       - name: Build and Test
-        run: sbt -v +test
+        run: sbt test
