@@ -42,3 +42,20 @@ jobs:
           name: compile-result
       - name: Test .*\\.[${{ matrix.tests }}].*
         run: sbt "testOnly .*\\.[${{ matrix.tests }}].*"
+  test-all:
+    needs: compile, test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: temurin
+          java-version: 17
+      - name: Download a compile classes
+        uses: actions/download-artifact@v3
+        with:
+          name: compile-result
+      - name: Test .*\\.[${{ matrix.tests }}].*
+        run: sbt test
