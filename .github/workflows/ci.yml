@@ -43,7 +43,7 @@ jobs:
       - name: Test .*\\.[${{ matrix.tests }}].*
         run: sbt "testOnly .*\\.[${{ matrix.tests }}].*"
   test-all:
-    needs: compile, test
+    needs: test
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
